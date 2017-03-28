@@ -27,18 +27,15 @@ public class JdbcTemplateDemo implements UserDao {
 	private static final String FINDBYID_SQL = "SELECT id,name,birthday,weight FROM user WHERE id=?";
 	private static final String FINDALL_SQL = "SELECT id,name,birthday,weight FROM user ";
 
-	@Override
 	public void insert(User user) {
 		jdbcTemplate.update(INSERT_SQL, new Object[] { user.getName(),
 				new Date(user.getBirthday().getTime()), user.getWeight() });
 	}
 
-	@Override
 	public void delete(int id) {
 		jdbcTemplate.update(DELETE_SQL, new Object[] { id });
 	}
 
-	@Override
 	public void update(User user) {
 		jdbcTemplate.update(
 				UPDATE_SQL,
@@ -47,7 +44,6 @@ public class JdbcTemplateDemo implements UserDao {
 						user.getWeight(), user.getId() });
 	}
 
-	@Override
 	public User findById(int id) {
 		List<User> users = jdbcTemplate.query(FINDBYID_SQL,
 				new Object[] { id },
@@ -59,7 +55,6 @@ public class JdbcTemplateDemo implements UserDao {
 		return null;
 	}
 
-	@Override
 	public List<User> findByAll() {
 		List<User> users = jdbcTemplate.query(FINDALL_SQL, new UserRowMapper());
 		return users;
@@ -72,7 +67,6 @@ public class JdbcTemplateDemo implements UserDao {
 	 */
 	class UserRowMapper implements RowMapper<User> {
 
-		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
 			user.setId(rs.getInt("id"));
